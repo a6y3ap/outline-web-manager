@@ -1,0 +1,41 @@
+body {
+	background: #263238;
+	color: #fff;
+	text-align: center;
+}
+
+#url-form, #json-form {
+	background: #fff;
+	color: #3f3f3f;
+	margin: auto;
+	padding: 1em;
+	margin-bottom: 1em;
+	width: max-content;
+}
+
+#json-display div {
+	background: #3e494e;
+	max-width: 90%;
+	padding: 1em;
+	margin: auto;
+	text-align: left;
+	margin-bottom: 1em;
+}
+
+#json-display div p {
+	margin: 0;
+}
+
+#json-display div p:nth-child(5) {
+	margin-top: 5px;
+	background: #eceff1;
+	word-wrap: break-word;
+	color: #009485;
+	padding: 5px;
+}
+
+button {
+	background: #263238;
+	color: #fff;
+	border: none;
+}
