@@ -4,7 +4,7 @@ body {
 	text-align: center;
 }
 
-#url-form, #json-form {
+.container {
 	background: #fff;
 	color: #3f3f3f;
 	margin: auto;
@@ -38,4 +38,24 @@ button {
 	background: #263238;
 	color: #fff;
 	border: none;
+}
+
+#json-display div.addKey {
+	text-align: center;
+	background: #fff;
+}
+
+.addKey button {
+	background: #263238;
+	color: #fff;
+	border: none;
+}
+
+.menu a {
+	background: #263238;
+	color: #fff;
+	border: none;
+	padding: 5px;
+	font-size: 20px;
+	text-decoration: none;
 }
