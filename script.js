@@ -52,7 +52,7 @@ function fetch_output(jsonText) {
 					})
 					.catch(error => {
 						const container = document.getElementById('json-display');
-						container.innerHTML = `<p>Error fetching JSON data. Possible reason may be SSL, click <a href="${apiUrl}" target="_blank">here</a> to allow unsafe connection and click on submit again.</p>`;
+						container.innerHTML = `<p>Error fetching JSON data. The issue may be related to SSL. Click <a href="${apiUrl}" target="_blank">here</a> to allow unsafe connection and click on submit again.</p>`;
 						console.error('Error fetching JSON:', error);
 					});
 			} else {
@@ -111,7 +111,7 @@ function fetch_data(jsonUrl) {
 			})
 			.catch(error => {
 				const container = document.getElementById('json-display');
-				container.innerHTML = `<p>Error fetching JSON data. Possible reason may be SSL, click <a href="${jsonUrl}">here</a> to allow unsafe connection and click on submit again..</p>`;
+				container.innerHTML = `<p>Error fetching JSON data. The issue may be related to SSL. Click <a href="${jsonUrl}">here</a> to allow unsafe connection and click on submit again..</p>`;
 				console.error('Error fetching JSON:', error);
 			});
 }
