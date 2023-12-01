@@ -2,10 +2,24 @@ const jsf = document.getElementById('json-form');
 const uf = document.getElementById('url-form');
 
 if (jsf) {
-	jsf.addEventListener('submit', function(event) {
-		event.preventDefault();
-		const jsonText = document.getElementById('json-text').value;
+	if (localStorage.getItem('jsonText')) {
+		// If it exists, retrieve the value and directly run the code
+		var jsonText = localStorage.getItem('jsonText');
+		fetch_output(jsonText);
+	} else {
+	
+		jsf.addEventListener('submit', function(event) {
+			event.preventDefault();
+			const jsonText = document.getElementById('json-text').value;
+			localStorage.setItem('jsonText', jsonText);
 
+			fetch_output(jsonText)
+		});	
+	}
+}
+
+function fetch_output(jsonText) {
+	
 		try {
 			const jsonData = JSON.parse(jsonText);
 			const apiUrl = jsonData.apiUrl + '/access-keys/';
@@ -18,16 +32,12 @@ if (jsf) {
 						const accessKeys = data.accessKeys;
 						const container = document.getElementById('json-display');
 						container.innerHTML = ''; // Clear previous data
-				
-						/* 
-						
+								
 						// sending a post request to /access-keys/ generates a new key
 						const itemDiv = document.createElement('div');
-						itemDiv.innerHTML = `<form id="addKey" method="post" action="${jsonUrl}"><button type="button" onclick="addKey()">Add New Key</button></form>`;
+						itemDiv.innerHTML = `<button type="button" onclick="createAccessKey('${apiUrl}')">Add New Key</button>`;
 						itemDiv.classList.add('addKey');
 						container.appendChild(itemDiv);
-						
-						*/
 
 						// Loop through the accessKeys and display the items
 						accessKeys.forEach(accessKey => {
@@ -54,30 +64,39 @@ if (jsf) {
 			container.innerHTML = '<p>Invalid JSON format</p>';
 			console.error('Error parsing JSON:', error);
 		}
-	});
 }
-if (uf) {
-	uf.addEventListener('submit', function(event) {
-		event.preventDefault();
-		const jsonUrl = document.getElementById('json-url').value + '/access-keys/';
 
-		// Fetch the JSON data from the input URL
+if (uf) {
+	if (localStorage.getItem('jsonUrl')) {
+		// If it exists, retrieve the value and directly run the code
+		var jsonUrl = localStorage.getItem('jsonUrl');
+		fetch_data(jsonUrl);
+	} else {
+	
+		uf.addEventListener('submit', function(event) {
+			event.preventDefault();
+			const jsonUrl = document.getElementById('json-url').value + '/access-keys/';
+			localStorage.setItem('jsonUrl', jsonUrl);
+
+			fetch_data(jsonUrl)
+		});	
+	}
+}
+
+function fetch_data(jsonUrl) {
+	// Fetch the JSON data from the input URL
 		fetch(jsonUrl)
 			.then(response => response.json())
-			.then(data => {
+			.then(data => { 
 				const accessKeys = data.accessKeys;
 				const container = document.getElementById('json-display');
 				container.innerHTML = ''; // Clear previous data
-				
-				/* 
-				
+								
 				// sending a post request to /access-keys/ generates a new key
 				const itemDiv = document.createElement('div');
-				itemDiv.innerHTML = `<form id="addKey" method="post" action="${jsonUrl}"><button type="button" onclick="addKey()">Add New Key</button></form>`;
+				itemDiv.innerHTML = `<button type="button" onclick="createAccessKey('${jsonUrl}')">Add New Key</button>`;
 				itemDiv.classList.add('addKey');
 				container.appendChild(itemDiv);
-				
-				*/
 
 				// Loop through the accessKeys and display the items
 				accessKeys.forEach(accessKey => {
@@ -95,7 +114,6 @@ if (uf) {
 				container.innerHTML = `<p>Error fetching JSON data. Possible reason may be SSL, click <a href="${jsonUrl}">here</a> to allow unsafe connection and click on submit again..</p>`;
 				console.error('Error fetching JSON:', error);
 			});
-	});
 }
 
 // Function to copy the accessUrl to the clipboard
@@ -109,6 +127,25 @@ function copyToClipboard(text) {
 	alert('Copied the text: ' + text);
 }
 
+function handleResponse(response) {
+  if (!response.ok) {
+	throw new Error('Network response was not ok');
+  }
+  return response.json();
+}
+
+function createAccessKey(addK) {
+	const container = document.getElementById('json-display');
+	var firstChild = container.firstChild;
+	var errorDiv = document.createElement('div');
+	errorDiv.textContent = 'Error while creating a key';
+	
+	fetch(addK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, mode: 'cors' })
+		.then(handleResponse)
+		.then(data => window.location.reload())
+		.catch(error => container.insertBefore(errorDiv, firstChild.nextSibling));
+}
+
 // Function to add new access key
 function addKey() {
 	
@@ -120,4 +157,10 @@ function addKey() {
 
 	// Refresh the page after the form is submitted
 	window.location.reload();
+}
+
+// Function to add new access key
+function goHome() {
+	// Go to Home Page
+	window.location.href = 'index.html';
 }

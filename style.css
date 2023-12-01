@@ -14,12 +14,15 @@ a {
 	margin: auto;
 	padding: 1em;
 	margin-bottom: 1em;
-	width: max-content;
+}
+
+input, textarea {
+	width: 100%;
+	max-width: 400px;
 }
 
 #json-display div {
 	background: #3e494e;
-	max-width: 90%;
 	padding: 1em;
 	margin: auto;
 	text-align: left;
