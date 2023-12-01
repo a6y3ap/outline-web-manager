@@ -4,6 +4,10 @@ body {
 	text-align: center;
 }
 
+a {
+	color: #fff;
+}
+
 .container {
 	background: #fff;
 	color: #3f3f3f;

@@ -42,7 +42,7 @@ if (jsf) {
 					})
 					.catch(error => {
 						const container = document.getElementById('json-display');
-						container.innerHTML = '<p>Error fetching JSON data</p>';
+						container.innerHTML = `<p>Error fetching JSON data. Possible reason may be SSL, click <a href="${apiUrl}" target="_blank">here</a> to allow unsafe connection and click on submit again.</p>`;
 						console.error('Error fetching JSON:', error);
 					});
 			} else {
@@ -92,7 +92,7 @@ if (uf) {
 			})
 			.catch(error => {
 				const container = document.getElementById('json-display');
-				container.innerHTML = '<p>Error fetching JSON data</p>';
+				container.innerHTML = `<p>Error fetching JSON data. Possible reason may be SSL, click <a href="${jsonUrl}">here</a> to allow unsafe connection and click on submit again..</p>`;
 				console.error('Error fetching JSON:', error);
 			});
 	});
