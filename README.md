@@ -1,5 +1,5 @@
 # Online Outline Manager
-Online Outline Manager to view the access keys. Might add the functionality to add and remove access keys.
+Online Outline Manager to view  and add the access keys.
 
 ## Files:
 ### [api-url.html](./api-url.html)
